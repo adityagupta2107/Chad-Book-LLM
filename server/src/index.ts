@@ -2,9 +2,18 @@ import express from 'express'
 import "dotenv/config"
 import { auth } from './lib/auth.js';
 import { toNodeHandler } from 'better-auth/node';
-
+import cors from 'cors'
+import { registerRoutes } from './routs/index.js';
+import { errorHandler } from './middleware/error-handler.middleware.js';
 const app = express();//express initialize
 const PORT = process.env.PORT;
+const clientUrl = process.env.CLIENT_URL ?? "http://localhost:3001";
+app.use(
+    cors({
+        origin: clientUrl,
+        credentials: true,
+    }),
+)
 
 app.all('/api/auth/{*any}', toNodeHandler(auth));
 
@@ -15,6 +24,9 @@ app.get("/",( req , res ) =>{
 app.get("/health",( req , res ) => {
     res.json({ status: "ok" });
 })
+
+registerRoutes(app);
+app.use(errorHandler)
 app.listen( PORT , () => {
     console.log("server is runn");
 })
