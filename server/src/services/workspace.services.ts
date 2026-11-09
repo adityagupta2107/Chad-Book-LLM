@@ -50,5 +50,5 @@ export async function deleteWorkspaceForUser(
 
     // }
 
-    await deleteWorkspaceRecord(workspaceId);
+    await deleteWorkspaceRecord(workspaceId)
 }
