@@ -1,7 +1,7 @@
 import { uploadPdfToCloudinary } from "../lib/cloudenery.js";
 import { scrapeWebsite } from "../lib/firecrwal.js";
-import { extractPdfFromBuffer } from "../lib/";
-import { enqueueSourceProcessing } from "../lib/source-events.js";
+import { extractPdfFromBuffer } from "../lib/pdf.js";
+// import { enqueueSourceProcessing } from "../lib/;
 import { fetchYoutubeTranscript } from "../lib/youtube.js";
 import {
     createSourceRecord,
@@ -23,10 +23,10 @@ async function createAndProcessSource(
 ) {
     const source = await createSourceRecord(data); 
 
-    await enqueueSourceProcessing({
-        sourceId: source.id,
-        workspaceId: source.workspaceId,
-    });
+    // await enqueueSourceProcessing({
+    //     sourceId: source.id,
+    //     workspaceId: source.workspaceId,
+    // });
 
     return source;
 }
@@ -66,7 +66,7 @@ export async function deleteSourceForWorkspace(
     await deleteSourceRecord(sourceId);
 }
 
-export async function bulkDeleteSourcesForWorkspace(
+export async function bulkDeleteSourceForWorkspace(
     workspaceId: string,
     userId: string,
     sourceIds: string[],
