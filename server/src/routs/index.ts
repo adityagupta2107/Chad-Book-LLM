@@ -1,9 +1,10 @@
+import type { Express } from "express";
+import { memoryRoutes } from "./memory.routes.js";
 import { sourceRoutes } from "./sources.routes.js";
 import { workspaceRoutes } from "./workspace.routes.js";
-import type { Express } from 'express'
 
-
-export function registerRoutes(app:Express):void{
-    workspaceRoutes.use("/:workspaceId/sources",sourceRoutes)
-    app.use("/api/workspaces", workspaceRoutes)
-}   
+export function registerRoutes(app: Express): void {
+    workspaceRoutes.use("/:workspaceId/sources", sourceRoutes);
+    app.use("/api/workspaces", workspaceRoutes);
+    app.use("/api/memory", memoryRoutes);
+}
